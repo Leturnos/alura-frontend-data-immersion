@@ -16,55 +16,81 @@ body {
     background: var(--bg-color); /* Define a cor de fundo usando uma variável */
     color: var(--secondary-color); /* Define a cor do texto padrão usando uma variável */
     font-family: "Quicksand", sans-serif; /* Define a família da fonte */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o body ocupe pelo menos a altura total da tela */
 }
 
 header {
-    padding: 2rem 1rem; /* Espaçamento interno (2rem em cima/baixo, 1rem nos lados) */
+    padding: 1rem; /* Espaçamento interno reduzido */
     display: flex; /* Habilita o layout flexbox */
     align-items: center; /* Alinha os itens verticalmente ao centro */
-    justify-content: space-around; /* Distribui os itens com espaço ao redor */
+    justify-content: space-between; /* Alinha itens nas extremidades */
     position: sticky; /* Mantém o cabeçalho fixo no topo ao rolar a página */
     top: 0; /* Posição do topo quando sticky */
     background: var(--bg-color); /* Cor de fundo do cabeçalho */
     z-index: 10; /* Define a ordem de empilhamento para ficar sobre outros elementos */
-    border-bottom: 1px solid var(--bg-color); /* Adiciona uma borda inferior */
+    border-bottom: 1px solid #3c4043; /* Borda inferior mais visível */
     gap: 1rem; /* Espaçamento entre os elementos flex */
 }
 
 header h1 {
-    font-size: 1.5rem; /* Tamanho da fonte */
+    font-size: 1.2rem; /* Tamanho da fonte reduzido */
     margin: 0; /* Remove a margem padrão */
-    font-weight: 500; /* Peso da fonte (médio) */
-    white-space: nowrap; /* Impede a quebra de linha do texto */
+    font-weight: 400; /* Peso da fonte (médio) */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap; /* Permite quebra de linha em telas pequenas */
 }
 
-div input {
+.controles-busca {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+}
+
+#categoria-select {
+    /* Estilo para parecer parte do texto */
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: inherit;
+    font-size: 1.2rem; /* Mesmo tamanho da fonte do h1 */
+    font-weight: 600; /* Destaque para a categoria selecionada */
+    padding: 0 0.25rem;
+}
+
+.controles-busca input {
     padding: 0.375rem 0.75rem; /* Espaçamento interno */
     border-radius: 1rem; /* Arredonda as bordas */
     border: 1px solid var(--tertiary-color); /* Define a borda */
     background: var(--bg-color); /* Cor de fundo */
     font-family: inherit; /* Herda a família da fonte do elemento pai */
-    font-size: 1.5rem; /* Tamanho da fonte */
-    transition: all 0.2s ease; /* Adiciona uma transição suave para todas as propriedades */
-    width: 30rem; /* Largura do input */
+    font-size: 1rem; /* Tamanho da fonte reduzido */
+    transition: all 0.2s ease; /* Adiciona uma transição suave */
     color: var(--secondary-color); /* Cor do texto digitado */
-    margin-right: .5rem; /* Margem à direita */
 }
 
-div input::placeholder {
-    font-size: 1.2rem; /* Tamanho da fonte do placeholder */
+#campo-busca {
+    width: 20rem; /* Largura do input de busca */
+}
+
+.controles-busca input::placeholder {
+    font-size: 1rem; /* Tamanho da fonte do placeholder */
     font-weight: 300; /* Peso da fonte do placeholder */
     color: var(--tertiary-color); /* Cor do texto do placeholder */
 }
 
-div input:focus {
+.controles-busca input:focus {
     outline: none; /* Remove a borda de foco padrão */
     border-color: var(--bg-color); /* Muda a cor da borda ao focar */
     box-shadow: 0 0 0 0.1rem var(--tertiary-color); /* Adiciona uma sombra de caixa para indicar foco */
 }
 
 #botao-busca {
-    padding: 1rem 2rem; /* Espaçamento interno */
+    padding: 0.5rem 1.5rem; /* Espaçamento interno reduzido */
     border-radius: 1rem; /* Arredonda as bordas */
     border: none; /* Remove a borda padrão */
     cursor: pointer; /* Muda o cursor para uma mão ao passar por cima */
@@ -89,67 +115,141 @@ div input:focus {
 }
 
 main {
-    overflow-y: scroll; /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura */
     max-width: 80rem; /* Largura máxima do conteúdo principal */
     margin: 0 auto; /* Centraliza o conteúdo principal horizontalmente */
-    margin-top: 2rem; /* Margem no topo */
-    height: calc(100vh - 10rem - 4rem); /* Calcula a altura para preencher o espaço restante da tela */
+    padding: 2rem 1rem;
+    flex-grow: 1; /* Faz o conteúdo principal crescer para empurrar o rodapé para baixo */
 }
 
-article {
-    background: none; /* Sem cor de fundo */
-    border-radius: 0; /* Sem bordas arredondadas */
-    padding: 0; /* Remove o padding */
-    padding: 0 1rem; /* Espaçamento interno nos lados */
-    margin-bottom: 1.25rem; /* Margem inferior */
-    box-shadow: none; /* Sem sombra */
-    transition: background-color 0.3s ease, border-bottom-color 0.3s ease; /* Transição suave */
-    border-bottom: 1px solid var(--bg-color); /* Borda inferior */
-    padding-bottom: 1.5rem; /* Espaçamento interno inferior */
+.api-key-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
-article:hover {
-    transform: scale(1.01); /* Aumenta ligeiramente o tamanho ao passar o mouse */
-    cursor: pointer; /* Muda o cursor para uma mão */
+#api-key-input {
+    width: 100%;
+    max-width: 30rem; /* Uma largura máxima razoável */
+    /* Estilo consistente com outros inputs */
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--primary-color); /* Borda azul para destacar que é importante */
+    background: var(--bg-color);
+    color: var(--secondary-color);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s ease;
 }
 
-article h2 {
-    margin-top: 0; /* Remove a margem superior */
-    font-weight: 600; /* Peso da fonte */
-    font-size: 1.6rem; /* Tamanho da fonte */
-    border-bottom: none; /* Sem borda inferior */
-    padding-bottom: 0; /* Sem espaçamento interno inferior */
-    margin-bottom: 0.25rem; /* Margem inferior */
+#api-key-input::placeholder {
+    color: var(--tertiary-color);
+}
+
+#paginacao-controles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem; /* Alterado de margin-bottom para margin-top */
+}
+
+#paginacao-controles button {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--tertiary-color);
+    background-color: #2d2e30;
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.status-message {
+    /* Ocupa todo o espaço do grid */
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--tertiary-color);
+    padding: 4rem 1rem;
+}
+
+.card-container {
+    display: grid;
+    /* Cria colunas responsivas: cada uma com no mínimo 350px e no máximo 1 fração do espaço. */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem; /* Espaçamento entre os cards */
+}
+
+.card {
+    background: #2d2e30; /* Um cinza um pouco mais claro que o fundo */
+    border-radius: 8px; /* Bordas arredondadas */
+    overflow: hidden; /* Garante que a imagem não "vaze" das bordas arredondadas */
+    display: flex; /* Alinha imagem e conteúdo lado a lado */
+    gap: 1rem; /* Espaço entre a imagem e o conteúdo */
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #3c4043;
+    height: 212px; /* Altura fixa (imagem 180px + padding 2*16px) */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+    width: 120px; /* Largura fixa para a imagem */
+    height: 180px; /* Altura fixa para a imagem */
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    border-radius: 4px;
+    flex-shrink: 0; /* Impede que a imagem encolha */
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column; /* Organiza o conteúdo em coluna */
+    justify-content: space-between; /* Empurra o conteúdo para as extremidades */
+}
+
+.card-content h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
     color: var(--primary-color); /* Cor do texto */
+    font-weight: 600;
+
+    /* Limita o título a 2 linhas e adiciona "..." */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.6rem; /* Altura fixa para 2 linhas, evitando que o card "pule" */
 }
 
-article p {
-    margin: 0.5rem 0; /* Margem superior e inferior */
-    line-height: 1.6; /* Altura da linha para melhor legibilidade */
-    font-size: 1rem; /* Tamanho da fonte */
-    margin-bottom: 0.5rem; /* Margem inferior */
+.card-content p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
     color: var(--secondary-color); /* Cor do texto */
 }
 
-article p strong {
-    color: var(--tertiary-color); /* Cor do texto em negrito */
-    font-weight: 400; /* Peso da fonte */
-}
-
-article a {
-    color: var(--primary-color); /* Cor do link */
+.card-content a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: var(--bg-color); /* Cor do texto do botão */
+    text-align: center;
     text-decoration: none; /* Remove o sublinhado padrão */
-    font-weight: 200; /* Peso da fonte */
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-article a:hover {
-    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+.card-content a:hover {
+    background-color: #a1c6fa; /* Um tom mais claro de azul no hover */
+    transform: scale(1.05);
 }
 
 .footer {
-    position: absolute; /* Posicionamento absoluto em relação ao elemento pai posicionado */
-    bottom: 0; /* Alinha na parte inferior */
-    left: 0; /* Alinha à esquerda */
     width: 100%; /* Largura total */
     color: var(--tertiary-color); /* Cor do texto */
     background-color: var(--bg-color); /* Cor de fundo */
@@ -177,10 +277,6 @@ article a:hover {
     transition: color 0.2s; /* Transição suave para a cor */
 }
 
-.footer-links a:hover {
-    color: var(--accent-color); /* Muda a cor do link ao passar o mouse (variável não definida) */
-}
-
 @media (max-width: 768px) {
     header { /* Estilos para telas com largura máxima de 768px */
         flex-direction: column; /* Organiza os itens do cabeçalho em coluna */
@@ -193,7 +289,7 @@ article a:hover {
     }
 
     div input { /* Estilos para o input em telas menores */
-        width: 90vw; /* Largura baseada na largura da viewport */
+        width: 100%; /* Ocupa toda a largura do container */
         font-size: 1.2rem; /* Reduz o tamanho da fonte */
     }
 
@@ -201,8 +297,14 @@ article a:hover {
         padding: 0 1rem; /* Adiciona espaçamento lateral */
     }
 
-    article:hover { /* Estilos para o article em telas menores */
-        transform: none; /* Remove o efeito de escala ao passar o mouse */
+    .card {
+        flex-direction: column; /* Imagem fica em cima do conteúdo */
+        align-items: center; /* Centraliza a imagem */
+    }
+
+    .card-content {
+        align-items: center; /* Centraliza o texto */
+        text-align: center;
     }
 }
 
@@ -218,14 +320,10 @@ article a:hover {
         font-size: 1rem; /* Reduz o tamanho da fonte */
     }
 
-    article h2 { /* Estilos para o h2 do article em telas muito pequenas */
-        font-size: 1.3rem; /* Reduz o tamanho da fonte */
-    }
-
-    div { /* Estilos para a div do cabeçalho em telas muito pequenas */
+    header div { /* Estilos para a div do cabeçalho em telas muito pequenas */
         display: flex; /* Habilita flexbox */
         align-items: center; /* Alinha itens ao centro */
-        justify-content: center; /* Centraliza itens */
+        width: 90vw;
         flex-direction: column; /* Organiza em coluna */
         gap: 0.5rem; /* Espaçamento entre os itens */
     }
